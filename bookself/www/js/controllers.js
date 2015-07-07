@@ -1,4 +1,4 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
   
@@ -53,4 +53,17 @@ angular.module('starter.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner) {
+    document.addEventListener("deviceready", function () {
+
+      $cordovaBarcodeScanner
+        .scan()
+        .then(function(barcodeData) {
+          alert(barcodeData.text);
+        }, function(error) {
+          // An error occurred
+        });
+    }, false);
 });
