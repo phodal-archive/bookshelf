@@ -55,13 +55,18 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner) {
+.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http) {
+    $scope.info = {};
+    $scope.detail = {};
     document.addEventListener("deviceready", function () {
-
       $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
-          alert(barcodeData.text);
+          $scope.info = barcodeData;
+          $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
+            $scope.detail = angular.copy(data);
+            $scope.detail = data;
+          });
         }, function(error) {
           // An error occurred
         });
