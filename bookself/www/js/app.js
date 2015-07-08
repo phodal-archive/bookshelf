@@ -11,7 +11,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       StatusBar.styleDefault();
     }
     if(window.cordova) {
-      //$cordovaSQLite.deleteDB("my.db");
+      $cordovaSQLite.deleteDB("my.db");
       db = $cordovaSQLite.openDB("my.db");
     } else {
       db = window.openDatabase("my.db", "1.0", "bookshelf", -1);

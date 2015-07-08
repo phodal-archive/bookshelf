@@ -26,11 +26,13 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 
 .controller('PlaylistsCtrl', function($scope, DBA) {
 		$scope.playlists = [];
-		var query = "SELECT * FROM bookshelf";
-		DBA.query(query)
-			.then(function (result) {
-				$scope.playlists = DBA.getAll(result)
-			});
+    $scope.getLists = function() {
+      var query = "SELECT * FROM bookshelf";
+      DBA.query(query)
+        .then(function (result) {
+          $scope.playlists = DBA.getAll(result)
+        });
+    };
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
@@ -43,22 +45,21 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 
     function saveToDatabase(data, barcodeData) {
       bookshelfDB.add({
-        id: 1,
         title: data.title
       });
     }
 
-    document.addEventListener("deviceready", function () {
+    $scope.scan = function () {
       $cordovaBarcodeScanner
         .scan()
-        .then(function(barcodeData) {
+        .then(function (barcodeData) {
           $scope.info = barcodeData.text;
           $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
             $scope.detail = data;
             saveToDatabase(data, barcodeData);
           });
-        }, function(error) {
-		      alert(error);
+        }, function (error) {
+          alert(error);
         });
-    }, false);
+    }
 });
