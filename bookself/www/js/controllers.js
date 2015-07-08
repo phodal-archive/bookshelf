@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ionic', 'ngCordova'])
+angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
@@ -41,8 +41,13 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [];
+.controller('PlaylistsCtrl', function($scope, DBA) {
+		$scope.playlists = [];
+		var query = "SELECT * FROM bookself";
+		DBA.query(query)
+			.then(function (result) {
+				$scope.playlists = result
+			});
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
@@ -52,23 +57,28 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
     $scope.info = {};
     $scope.detail = {};
     $scope.error = {};
+
+    function saveToDatabase(data, barcodeData) {
+      var db = $cordovaSQLite.openDB({name: "my.db"});
+      $scope.execute = function () {
+        var query = "INSERT INTO bookself (title, price, author, summary, isbn) VALUES (?,?,?,?,?)";
+        $cordovaSQLite.execute(db, query, [data.title, data.price, data.author, data.summary, barcodeData.text]).then(function (res) {
+          $scope.error = res.insertId;
+        }, function (err) {
+          $scope.error = err;
+        });
+      };
+    }
+
     document.addEventListener("deviceready", function () {
       $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
           $scope.info = barcodeData.text;
           $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
-            $scope.detail = angular.copy(data);
+            $scope.error = [data.title, data.price, data.author, data.summary, barcodeData.text];
 
-            var db = $cordovaSQLite.openDB({ name: "my.db"});
-            $scope.execute = function() {
-              var query = "INSERT INTO bookself (title, price, author, summary, isbn) VALUES (?,?,?,?,?)";
-              $cordovaSQLite.execute(db, query, [data.title, data.price, data.author, data.summary, data.isbn]).then(function(res) {
-	              $scope.error =  res.insertId;
-              }, function (err) {
-                $scope.error = err;
-              });
-            };
+            saveToDatabase(data, barcodeData);
           });
         }, function(error) {
 		      alert(error);
