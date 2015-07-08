@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, DBA) {
   $scope.loginData = {};
 
   $ionicModal.fromTemplateUrl('templates/login.html', {
@@ -18,9 +18,17 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
   };
 
   $scope.doLogin = function() {
-    $timeout(function() {
-      $scope.closeLogin();
-    }, 1000);
+    var query = "SELECT image,isbn,title FROM bookshelf";
+    DBA.query(query)
+      .then(function (result) {
+        var data = DBA.getAll(result);
+        $http.put('http://mqtt.phodal.com/topics/bookshelf/' + $scope.loginData.username, data)
+          .then(function (response, status) {
+            $scope.closeLogin();
+          }, function (err) {
+            alert(JSON.stringify(err));
+          });
+      });
   };
 })
 
