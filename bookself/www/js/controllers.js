@@ -45,7 +45,11 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 
     function saveToDatabase(data, barcodeData) {
       bookshelfDB.add({
-        title: data.title
+        title: data.title,
+        image: data.image,
+        publisher: data.publisher,
+        author: data.author,
+        isbn: barcodeData.text
       });
     }
 
