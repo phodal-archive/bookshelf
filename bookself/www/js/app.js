@@ -1,8 +1,8 @@
+var db = null;
+
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
 
 .run(function($ionicPlatform, $cordovaSQLite) {
-    var db = null;
-
     $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -10,7 +10,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     if (window.StatusBar) {
       StatusBar.styleDefault();
     }
-    db = $cordovaSQLite.openDB("my.db");
+    if(window.cordova) {
+      //$cordovaSQLite.deleteDB("my.db");
+      db = $cordovaSQLite.openDB("my.db");
+    } else {
+      db = window.openDatabase("my.db", "1.0", "bookself", -1);
+    }
     $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS bookself (id integer primary key, title text, price text, author text, summary text, isbn text)");
 
   });
