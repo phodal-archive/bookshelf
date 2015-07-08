@@ -1,9 +1,11 @@
 <ion-view view-title="Search">
-  <ion-content>
-    <h1>Detail</h1>
-    <p>
-      {{info}}
-      {{detail}}
-    </p>
-  </ion-content>
+    <ion-content>
+        <h2>{{detail.title}}</h2>
+        <img src="{{detail.image}}" alt="{{detail.summary}}"/>
+        ISBN:{{detail.isbn}}<br/>
+        出版社: {{detail.publisher}} <br/>
+        简介: {{detail.summary}} <br/>
+        售价: {{detail.price}} <br/>
+        </p>
+    </ion-content>
 </ion-view>
