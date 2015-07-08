@@ -1,5 +1,18 @@
 <ion-view view-title="Browse">
-  <ion-content>
-    <h1>Browse</h1>
-  </ion-content>
+    <ion-content>
+        <ion-refresher pulling-text="Pull to refresh" on-refresh="getLists()">
+        </ion-refresher>
+        <ion-list>
+            <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+                <h2>{{playlist.title}}</h2>
+                <p>
+                    <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
+                    出版社: {{playlist.publisher}} <br/>
+                    作者: {{playlist.author}} <br/>
+                    ISBN:{{playlist.isbn}}<br/>
+                    简介: {{playlist.summary}} <br/>
+                </p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
 </ion-view>

@@ -1,1 +1,4 @@
 /* Empty. Add your own CSS if you like */
+.ion-qr-scanner:before {
+    font-size: 32px;
+}

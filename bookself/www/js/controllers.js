@@ -40,6 +40,19 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
+.controller('BrowseCtrl', function($scope, DBA) {
+    $scope.playlists = [];
+    $scope.getLists = function() {
+      var query = "SELECT * FROM bookshelf";
+      DBA.query(query)
+        .then(function (result) {
+          $scope.playlists = DBA.getAll(result);
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$apply()
+        });
+    };
+})
+
 .controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, bookshelfDB) {
     $scope.info = {};
     $scope.detail = {};

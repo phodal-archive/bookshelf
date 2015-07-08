@@ -44,7 +44,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     url: "/browse",
     views: {
       'menuContent': {
-        templateUrl: "templates/browse.html"
+        templateUrl: "templates/browse.html",
+        controller: 'BrowseCtrl'
       }
     }
   })
