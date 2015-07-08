@@ -1,8 +1,8 @@
-<ion-view view-title="Playlist">
+<ion-view view-title="详细">
   <ion-content>
-    <ion-refresher pulling-text="Pull to refresh" on-refresh="getLists()">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="getLists()">
     </ion-refresher>
-    <h2>{{playlist.title}}</h2>
+    <h3>{{playlist.title}}</h3>
     <p>
       <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
       出版社: {{playlist.publisher}} <br/>
