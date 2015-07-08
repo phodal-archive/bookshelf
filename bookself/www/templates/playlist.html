@@ -1,14 +1,25 @@
 <ion-view view-title="详细">
-  <ion-content>
-    <ion-refresher pulling-text="下拉刷新" on-refresh="getLists()">
-    </ion-refresher>
-    <h3>{{playlist.title}}</h3>
-    <p>
-      <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
-      出版社: {{playlist.publisher}} <br/>
-      作者: {{playlist.author}} <br/>
-      ISBN:{{playlist.isbn}}<br/>
-      简介: {{playlist.summary}} <br/>
-    </p>
-  </ion-content>
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="getLists()">
+        </ion-refresher>
+        <div class="row">
+            <div class="col col-33">
+                <img ng-src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
+            </div>
+            <div class="col col-67">
+                {{playlist.title}} <br/>
+                出版社: {{playlist.publisher}} <br/>
+                作者: {{playlist.author}} <br/>
+                ISBN:{{playlist.isbn}}<br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <strong>简介</strong>:
+                <p>
+                    {{playlist.summary}}
+                </p>
+            </div>
+        </div>
+    </ion-content>
 </ion-view>

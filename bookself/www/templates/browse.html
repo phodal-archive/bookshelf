@@ -6,7 +6,7 @@
             <ion-item ng-repeat="playlist in playlists">
                 <h2>{{playlist.title}}</h2>
                 <p>
-                    <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
+                    <img ng-src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
                     出版社: {{playlist.publisher}} <br/>
                     作者: {{playlist.author}} <br/>
                     ISBN:{{playlist.isbn}}<br/>
