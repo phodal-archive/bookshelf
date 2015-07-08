@@ -60,7 +60,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     })
 
   .state('app.single', {
-    url: "/playlists/:playlistId",
+    url: "/playlists/:id",
     views: {
       'menuContent': {
         templateUrl: "templates/playlist.html",

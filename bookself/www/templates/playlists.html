@@ -4,7 +4,7 @@
     </ion-refresher>
     <ion-list>
       <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
-        <h2>{{playlist.title}}</h2>
+        <h2>{{playlist.id}} {{playlist.title}}</h2>
         <p>
           出版社: {{playlist.publisher}} <br/>
           作者: {{playlist.author}} <br/>

@@ -3,7 +3,7 @@
         <ion-refresher pulling-text="Pull to refresh" on-refresh="getLists()">
         </ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+            <ion-item ng-repeat="playlist in playlists">
                 <h2>{{playlist.title}}</h2>
                 <p>
                     <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>

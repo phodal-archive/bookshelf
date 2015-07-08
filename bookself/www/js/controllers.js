@@ -35,9 +35,14 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
           $scope.$apply()
         });
     };
+    $scope.getLists();
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('PlaylistCtrl', function($scope, $stateParams, bookshelfDB) {
+    bookshelfDB.get($stateParams.id).then(function(result){
+      $scope.playlist = result;
+    });
+
 })
 
 .controller('BrowseCtrl', function($scope, DBA) {
@@ -51,7 +56,8 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
           $scope.$apply()
         });
     };
-})
+    $scope.getLists();
+  })
 
 .controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, bookshelfDB) {
     $scope.info = {};
