@@ -55,7 +55,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http) {
+.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, $cordovaSQLite, $cordovaToast) {
     $scope.info = {};
     $scope.detail = {};
     document.addEventListener("deviceready", function () {
@@ -64,8 +64,32 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
         .then(function(barcodeData) {
           $scope.info = barcodeData;
           $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
-            $scope.detail = angular.copy(data);
             $scope.detail = data;
+
+            var db = $cordovaSQLite.openDB({ name: "my.db", bgType: 1 });
+            $scope.execute = function() {
+              var query = "INSERT INTO bookself (title, price, author, summary, isbn) VALUES (?,?,?,?,?)";
+              $cordovaSQLite.execute(db, query, [data.title, data.price, data.author, data.summary, data.isbn]).then(function(res) {
+                console.log("insertId: " + res.insertId);
+                $cordovaToast
+                  .show("insertId: " + res.insertId, 'long', 'center')
+                  .then(function(success) {
+                    // success
+                  }, function (error) {
+                    // error
+                  });
+
+              }, function (err) {
+                $cordovaToast
+                  .show(err, 'long', 'center')
+                  .then(function(success) {
+                    // success
+                  }, function (error) {
+                    // error
+                  });
+
+              });
+            };
           });
         }, function(error) {
           // An error occurred
