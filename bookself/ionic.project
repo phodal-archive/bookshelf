@@ -1,5 +1,5 @@
 {
-  "name": "bookself",
+  "name": "bookshelf",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",

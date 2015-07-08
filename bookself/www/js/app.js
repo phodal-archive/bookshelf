@@ -14,9 +14,9 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       //$cordovaSQLite.deleteDB("my.db");
       db = $cordovaSQLite.openDB("my.db");
     } else {
-      db = window.openDatabase("my.db", "1.0", "bookself", -1);
+      db = window.openDatabase("my.db", "1.0", "bookshelf", -1);
     }
-    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS bookself (id integer primary key, title text, price text, author text, summary text, isbn text)");
+    $cordovaSQLite.execute(db, "CREATE TABLE IF NOT EXISTS bookshelf (id integer primary key, title text)");
 
   });
 })

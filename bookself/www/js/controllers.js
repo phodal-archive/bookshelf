@@ -26,32 +26,26 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 
 .controller('PlaylistsCtrl', function($scope, DBA) {
 		$scope.playlists = [];
-		var query = "SELECT * FROM bookself";
+		var query = "SELECT * FROM bookshelf";
 		DBA.query(query)
 			.then(function (result) {
-				$scope.playlists = result
+				$scope.playlists = DBA.getAll(result)
 			});
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, $cordovaSQLite) {
+.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, bookshelfDB) {
     $scope.info = {};
     $scope.detail = {};
     $scope.error = {};
 
     function saveToDatabase(data, barcodeData) {
-      $scope.execute = function () {
-        var query = "INSERT INTO bookself (id, title, price, author, summary, isbn) VALUES (?, ?,?,?,?,?)";
-        $cordovaSQLite.execute(db, query, ["1", "title", "price", "author", "summary", "text"]).then(function (res) {
-          alert(res);
-          $scope.error = res;
-        }, function (err) {
-          alert(err);
-          $scope.error = err;
-        });
-      };
+      bookshelfDB.add({
+        id: 1,
+        title: data.title
+      });
     }
 
     document.addEventListener("deviceready", function () {
