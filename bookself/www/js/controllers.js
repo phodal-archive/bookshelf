@@ -1,14 +1,14 @@
 angular.module('starter.controllers', ['ionic', 'ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-  
+
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-  
+
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -42,57 +42,36 @@ angular.module('starter.controllers', ['ionic', 'ngCordova'])
 })
 
 .controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+  $scope.playlists = [];
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, $cordovaSQLite, $cordovaToast) {
+.controller('ScanBarcodeCtrl', function($scope, $cordovaBarcodeScanner, $http, $cordovaSQLite) {
     $scope.info = {};
     $scope.detail = {};
+    $scope.error = {};
     document.addEventListener("deviceready", function () {
       $cordovaBarcodeScanner
         .scan()
         .then(function(barcodeData) {
-          $scope.info = barcodeData;
+          $scope.info = barcodeData.text;
           $http.get("https://api.douban.com/v2/book/isbn/" + barcodeData.text).success(function (data) {
-            $scope.detail = data;
+            $scope.detail = angular.copy(data);
 
-            var db = $cordovaSQLite.openDB({ name: "my.db", bgType: 1 });
+            var db = $cordovaSQLite.openDB({ name: "my.db"});
             $scope.execute = function() {
               var query = "INSERT INTO bookself (title, price, author, summary, isbn) VALUES (?,?,?,?,?)";
               $cordovaSQLite.execute(db, query, [data.title, data.price, data.author, data.summary, data.isbn]).then(function(res) {
-                console.log("insertId: " + res.insertId);
-                $cordovaToast
-                  .show("insertId: " + res.insertId, 'long', 'center')
-                  .then(function(success) {
-                    // success
-                  }, function (error) {
-                    // error
-                  });
-
+	              $scope.error =  res.insertId;
               }, function (err) {
-                $cordovaToast
-                  .show(err, 'long', 'center')
-                  .then(function(success) {
-                    // success
-                  }, function (error) {
-                    // error
-                  });
-
+                $scope.error = err;
               });
             };
           });
         }, function(error) {
-          // An error occurred
+		      alert(error);
         });
     }, false);
 });
