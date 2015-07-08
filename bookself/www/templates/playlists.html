@@ -1,11 +1,18 @@
 <ion-view view-title="Playlists">
   <ion-content>
-    <button class="button  button-positive" ng-click="getLists()">获取</button>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="getLists()">
+    </ion-refresher>
     <ion-list>
-      {{playlists}}
-      <!--<ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">-->
-        <!--{{playlist.title}}-->
-      <!--</ion-item>-->
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+        <h2>{{playlist.title}}</h2>
+        <p>
+          <img src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
+          出版社: {{playlist.publisher}} <br/>
+          作者: {{playlist.author}} <br/>
+          ISBN:{{playlist.isbn}}<br/>
+          简介: {{playlist.summary}} <br/>
+        </p>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

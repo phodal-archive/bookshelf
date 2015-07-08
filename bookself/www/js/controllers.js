@@ -30,7 +30,9 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
       var query = "SELECT * FROM bookshelf";
       DBA.query(query)
         .then(function (result) {
-          $scope.playlists = DBA.getAll(result)
+          $scope.playlists = DBA.getAll(result);
+          $scope.$broadcast('scroll.refreshComplete');
+          $scope.$apply()
         });
     };
 })
@@ -49,6 +51,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
         image: data.image,
         publisher: data.publisher,
         author: data.author,
+        summary: data.summary,
         isbn: barcodeData.text
       });
     }

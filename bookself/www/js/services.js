@@ -39,7 +39,7 @@ angular.module('starter.services', [])
 		var self = this;
 
 		self.all = function() {
-			return DBA.query("SELECT id, title, image, publisher, author, isbn FROM bookshelf")
+			return DBA.query("SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf")
 				.then(function(result){
 					return DBA.getAll(result);
 				});
@@ -47,15 +47,15 @@ angular.module('starter.services', [])
 
 		self.get = function(memberId) {
 			var parameters = [memberId];
-			return DBA.query("SELECT id, title, image, publisher, author, isbn FROM bookshelf WHERE id = (?)", parameters)
+			return DBA.query("SELECT id, title, image, publisher, author, isbn, summary FROM bookshelf WHERE id = (?)", parameters)
 				.then(function(result) {
 					return DBA.getById(result);
 				});
 		};
 
 		self.add = function(member) {
-			var parameters = [member.id, member.title, member.image, member.publisher, member.author, member.isbn];
-			return DBA.query("INSERT INTO bookshelf (id, title, image, publisher, author, isbn) VALUES (?,?,?,?,?,?)", parameters);
+			var parameters = [member.id, member.title, member.image, member.publisher, member.author, member.isbn, member.summary];
+			return DBA.query("INSERT INTO bookshelf (id, title, image, publisher, author, isbn, summary) VALUES (?,?,?,?,?,?,?)", parameters);
 		};
 
 		self.remove = function(member) {
