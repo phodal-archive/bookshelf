@@ -3,7 +3,7 @@
         录入
         <i class="icon icon-right ion-qr-scanner" ng-click="scan()"></i>
     </ion-nav-title>
-    <ion-content>
+    <ion-content ng-hide="!detail.title">
         <h2>{{detail.title}}</h2>
         <p>
             <img src="{{detail.image}}" alt="{{detail.summary}}"/><br/>
