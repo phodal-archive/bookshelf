@@ -4,13 +4,24 @@
         <i class="icon icon-right ion-qr-scanner" ng-click="scan()"></i>
     </ion-nav-title>
     <ion-content ng-hide="!detail.title">
-        <h2>{{detail.title}}</h2>
-        <p>
-            <img src="{{detail.image}}" alt="{{detail.summary}}"/><br/>
-            出版社: {{detail.publisher}} <br/>
-            作者: {{detail.author}} <br/>
-            ISBN:{{info}}<br/>
-            简介: {{detail.summary}} <br/>
-        </p>
+        <div class="row">
+            <div class="col col-33">
+                <img ng-src="{{detail.image}}" alt="{{detail.summary}}"/><br/>
+            </div>
+            <div class="col col-67">
+                {{detail.title}} <br/>
+                出版社: {{detail.publisher}} <br/>
+                作者: {{detail.author}} <br/>
+                ISBN:{{info}}<br/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <strong>简介</strong>:
+                <p>
+                    {{detail.summary}}
+                </p>
+            </div>
+        </div>
     </ion-content>
 </ion-view>
