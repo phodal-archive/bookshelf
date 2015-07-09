@@ -32,7 +32,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, DBA) {
+.controller('PlaylistsCtrl', function($scope, DBA, bookshelfDB) {
 		$scope.playlists = [];
     $scope.getLists = function() {
       var query = "SELECT * FROM bookshelf";
@@ -43,6 +43,10 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
           $scope.$apply()
         });
     };
+    $scope.delete = function (id) {
+      bookshelfDB.remove({id: id});
+      $scope.getLists();
+    };
     $scope.getLists();
 })
 
@@ -50,7 +54,6 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
     bookshelfDB.get($stateParams.id).then(function(result){
       $scope.playlist = result;
     });
-
 })
 
 .controller('BrowseCtrl', function($scope, DBA) {
