@@ -32,13 +32,13 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
   };
 })
 
-.controller('PlaylistsCtrl', function($scope, DBA, bookshelfDB) {
-		$scope.playlists = [];
+.controller('BookListsCtrl', function($scope, DBA, bookshelfDB) {
+		$scope.booklists = [];
     $scope.getLists = function() {
       var query = "SELECT * FROM bookshelf";
       DBA.query(query)
         .then(function (result) {
-          $scope.playlists = DBA.getAll(result);
+          $scope.booklists = DBA.getAll(result);
           $scope.$broadcast('scroll.refreshComplete');
           $scope.$apply()
         });
@@ -50,19 +50,19 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
     $scope.getLists();
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams, bookshelfDB) {
+.controller('BookDetailCtrl', function($scope, $stateParams, bookshelfDB) {
     bookshelfDB.get($stateParams.id).then(function(result){
-      $scope.playlist = result;
+      $scope.booklist = result;
     });
 })
 
 .controller('BrowseCtrl', function($scope, DBA) {
-    $scope.playlists = [];
+    $scope.booklists = [];
     $scope.getLists = function() {
       var query = "SELECT * FROM bookshelf";
       DBA.query(query)
         .then(function (result) {
-          $scope.playlists = DBA.getAll(result);
+          $scope.booklists = DBA.getAll(result);
           $scope.$broadcast('scroll.refreshComplete');
           $scope.$apply()
         });

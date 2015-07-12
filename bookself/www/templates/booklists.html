@@ -1,0 +1,12 @@
+<ion-view view-title="书单">
+    <ion-content>
+        <ion-refresher pulling-text="下拉刷新" on-refresh="getLists()">
+        </ion-refresher>
+        <ion-list show-delete="false" can-swipe="true">
+            <ion-item ng-repeat="booklist in booklists" href="#/app/booklists/{{booklist.id}}">
+                <h2>{{booklist.id}} {{booklist.title}}</h2>
+                <ion-option-button class="button-assertive icon ion-trash-a" ng-click="delete(booklist.id)"></ion-option-button>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

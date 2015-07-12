@@ -49,25 +49,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
       }
     }
   })
-    .state('app.playlists', {
-      url: "/playlists",
+    .state('app.booklists', {
+      url: "/booklists",
       views: {
         'menuContent': {
-          templateUrl: "templates/playlists.html",
-          controller: 'PlaylistsCtrl'
+          templateUrl: "templates/booklists.html",
+          controller: 'BookListsCtrl'
         }
       }
     })
 
   .state('app.single', {
-    url: "/playlists/:id",
+    url: "/booklists/:id",
     views: {
       'menuContent': {
-        templateUrl: "templates/playlist.html",
-        controller: 'PlaylistCtrl'
+        templateUrl: "templates/booklist.html",
+        controller: 'BookDetailCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/booklists');
 });

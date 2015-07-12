@@ -3,14 +3,14 @@
         <ion-refresher pulling-text="下拉刷新" on-refresh="getLists()">
         </ion-refresher>
         <ion-list>
-            <ion-item ng-repeat="playlist in playlists">
-                <h2>{{playlist.title}}</h2>
+            <ion-item ng-repeat="booklist in booklists">
+                <h2>{{booklist.title}}</h2>
                 <p>
-                    <img ng-src="{{playlist.image}}" alt="{{playlist.summary}}"/><br/>
-                    出版社: {{playlist.publisher}} <br/>
-                    作者: {{playlist.author}} <br/>
-                    ISBN:{{playlist.isbn}}<br/>
-                    简介: {{playlist.summary}} <br/>
+                    <img ng-src="{{booklist.image}}" alt="{{booklist.summary}}"/><br/>
+                    出版社: {{booklist.publisher}} <br/>
+                    作者: {{booklist.author}} <br/>
+                    ISBN:{{booklist.isbn}}<br/>
+                    简介: {{booklist.summary}} <br/>
                 </p>
             </ion-item>
         </ion-list>
