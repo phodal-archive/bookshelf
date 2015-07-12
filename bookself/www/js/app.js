@@ -30,11 +30,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: "/search",
+  .state('app.scan', {
+    url: "/scan",
     views: {
       'menuContent': {
-        templateUrl: "templates/search.html",
+        templateUrl: "templates/scan.html",
         controller: 'ScanBarcodeCtrl'
       }
     }
