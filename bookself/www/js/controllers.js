@@ -3,7 +3,7 @@ angular.module('starter.controllers', ['ionic', 'ngCordova', 'starter.services']
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $http, DBA) {
   $scope.loginData = {};
 
-  $ionicModal.fromTemplateUrl('templates/login.html', {
+  $ionicModal.fromTemplateUrl('templates/upload.html', {
     scope: $scope
   }).then(function(modal) {
     $scope.modal = modal;
