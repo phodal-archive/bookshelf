@@ -28,8 +28,7 @@ angular.module('starter.services', [])
 		};
 
 		self.getById = function(result) {
-			var output = angular.copy(result.rows.item(0));
-			return output;
+			return angular.copy(result.rows.item(0));
 		};
 
 		return self;
